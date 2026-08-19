@@ -1,0 +1,10 @@
+{
+  "base_url": { "value": "http://localhost:3000" },
+  "job_id": { "value": "cmt07jato0002a4u9zikvpz5k" },
+  "email": { "value": "jordan.reyes@example.com" },
+  "password": { "value": "password123" },
+  "phone": { "value": "555-019-4482" },
+  "resume_summary": { "value": "Frontend engineer with 4 years of experience building React and TypeScript applications, with a focus on accessible, component-driven UI and developer tooling." },
+  "essay_1": { "value": "I've always wanted to work closer to the data that shapes product decisions, not just the UI built on top of it." },
+  "essay_2": { "value": "I noticed our onboarding funnel metrics were double-counting retries. I traced it to a client-side retry bug and shipped a fix before it skewed a quarter's reporting." }
+}
