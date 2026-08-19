@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
 
 export function ApplyForm({
   jobId,
@@ -12,7 +11,6 @@ export function ApplyForm({
   defaultName: string;
   defaultEmail: string;
 }) {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -48,7 +46,6 @@ export function ApplyForm({
     }
 
     setSuccess(true);
-    router.refresh();
   }
 
   if (success) {
