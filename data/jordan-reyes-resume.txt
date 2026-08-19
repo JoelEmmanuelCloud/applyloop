@@ -1,0 +1,25 @@
+Jordan Reyes
+jordan.reyes@example.com
+(555) 019-4482
+
+Summary
+Frontend engineer with 4 years of experience building React and TypeScript
+applications, with a focus on accessible, component-driven UI and developer
+tooling. Comfortable owning a feature from design handoff to production.
+
+Experience
+Frontend Engineer, Marlow Digital (2022 - Present)
+- Rebuilt the customer settings area in React and TypeScript, cutting
+  page load time by 40%.
+- Introduced a shared component library adopted across three product teams.
+
+Junior Developer, Case & Co. (2020 - 2022)
+- Built and maintained internal admin tools used by support and ops.
+- Paired with backend engineers to design REST APIs for new features.
+
+Education
+B.S. Computer Science, Ridgeview State University (2020)
+
+Skills
+React, TypeScript, Next.js, Tailwind CSS, REST APIs, accessibility (WCAG),
+component design systems, Git, CI/CD basics.
