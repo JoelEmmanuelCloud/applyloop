@@ -10,13 +10,17 @@
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "kane:apply": "tsx kane/orchestrator.ts apply",
+    "kane:security-check": "tsx kane/orchestrator.ts security-check",
+    "kane:security-watch": "tsx kane/orchestrator.ts security-watch"
   },
   "dependencies": {
     "@libsql/client": "^0.17.4",
     "@prisma/adapter-libsql": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "bcryptjs": "^3.0.3",
+    "cross-spawn": "^7.0.6",
     "jose": "^6.2.9",
     "next": "16.3.1",
     "prisma": "^7.9.1",
@@ -26,6 +30,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/cross-spawn": "^6.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
