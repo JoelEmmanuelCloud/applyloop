@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
     include: { job: true },
   });
 
-  if (!application) {
+  if (!application || application.userId !== session.userId) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
