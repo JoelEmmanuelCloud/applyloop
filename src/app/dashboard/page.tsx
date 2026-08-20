@@ -2,6 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { getInitials, timeAgo } from "@/lib/format";
+import { StatusBadge } from "@/components/status-badge";
+import { ArrowRightIcon } from "@/components/icons";
 
 export default async function DashboardPage() {
   const session = await getSession();
@@ -16,34 +19,47 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-2xl font-bold">Your applications</h1>
+    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
+        Your applications
+      </h1>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Track the status of every role you&apos;ve applied to.
+      </p>
 
       {applications.length === 0 ? (
-        <p className="mt-4 text-gray-600">
-          You haven&apos;t applied to anything yet.{" "}
-          <Link href="/" className="underline">
+        <div className="mt-8 rounded-xl border border-dashed border-border bg-surface px-6 py-12 text-center">
+          <p className="text-sm text-muted-foreground">
+            You haven&apos;t applied to anything yet.
+          </p>
+          <Link
+            href="/"
+            className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover hover:underline"
+          >
             Browse open roles
+            <ArrowRightIcon className="h-3.5 w-3.5" />
           </Link>
-          .
-        </p>
+        </div>
       ) : (
         <div className="mt-6 grid gap-3">
           {applications.map((application) => (
             <Link
               key={application.id}
               href={`/dashboard/applications/${application.id}`}
-              className="rounded-lg border border-gray-200 p-4 hover:border-gray-400"
+              className="group flex items-center gap-4 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/40"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">{application.job.title}</p>
-                  <p className="text-sm text-gray-600">{application.job.company}</p>
-                </div>
-                <span className="text-xs uppercase tracking-wide text-gray-500">
-                  {application.status}
-                </span>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted text-sm font-semibold text-foreground/80">
+                {getInitials(application.job.company)}
+              </span>
+
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-medium text-foreground">{application.job.title}</p>
+                <p className="mt-0.5 truncate text-sm text-muted-foreground">
+                  {application.job.company} &middot; Applied {timeAgo(application.createdAt)}
+                </p>
               </div>
+
+              <StatusBadge status={application.status} />
             </Link>
           ))}
         </div>

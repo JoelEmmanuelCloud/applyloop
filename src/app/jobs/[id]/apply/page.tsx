@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { ApplyForm } from "./apply-form";
+import { ArrowLeftIcon } from "@/components/icons";
 
 export default async function ApplyPage({ params }: PageProps<"/jobs/[id]/apply">) {
   const { id } = await params;
@@ -25,14 +27,28 @@ export default async function ApplyPage({ params }: PageProps<"/jobs/[id]/apply"
   });
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10">
-      <h1 className="text-2xl font-bold">Apply: {job.title}</h1>
-      <p className="mt-1 text-gray-600">{job.company}</p>
+    <div className="mx-auto max-w-xl px-4 py-10 sm:px-6">
+      <Link
+        href={`/jobs/${job.id}`}
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeftIcon className="h-4 w-4" />
+        Back to role
+      </Link>
+
+      <div className="mt-6">
+        <span className="text-xs font-semibold tracking-widest text-accent uppercase">
+          {job.company}
+        </span>
+        <h1 className="mt-2 font-display text-2xl font-bold tracking-tight text-foreground">
+          Apply: {job.title}
+        </h1>
+      </div>
 
       {existing ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+        <div className="mt-6 rounded-xl border border-border bg-surface p-5 text-sm text-muted-foreground">
           You already applied to this role.
-        </p>
+        </div>
       ) : (
         <ApplyForm
           jobId={job.id}

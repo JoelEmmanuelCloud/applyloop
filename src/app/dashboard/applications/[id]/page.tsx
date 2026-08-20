@@ -2,6 +2,8 @@
 
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
+import { StatusBadge } from "@/components/status-badge";
+import { ArrowLeftIcon, AlertCircleIcon } from "@/components/icons";
 
 type ApplicationDetail = {
   id: string;
@@ -17,6 +19,17 @@ type ApplicationDetail = {
     company: string;
   };
 };
+
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+        {label}
+      </dt>
+      <dd className="mt-1 whitespace-pre-line text-[15px] text-foreground">{value}</dd>
+    </div>
+  );
+}
 
 export default function ApplicationDetailPage({
   params,
@@ -52,14 +65,40 @@ export default function ApplicationDetailPage({
   }, [id]);
 
   if (loading) {
-    return <div className="mx-auto max-w-2xl px-4 py-10 text-gray-500">Loading...</div>;
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+        <div className="animate-pulse">
+          <div className="h-4 w-32 rounded bg-muted" />
+          <div className="mt-6 h-7 w-64 rounded bg-muted" />
+          <div className="mt-2 h-4 w-40 rounded bg-muted" />
+          <div className="mt-8 space-y-6">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i}>
+                <div className="h-3 w-24 rounded bg-muted" />
+                <div className="mt-2 h-4 w-full rounded bg-muted" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error || !application) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-10">
-        <p className="text-red-600">{error ?? "Application not found."}</p>
-        <Link href="/dashboard" className="mt-4 inline-block text-sm underline">
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+        <div
+          role="alert"
+          className="flex items-start gap-2 rounded-md border border-destructive/30 bg-destructive-soft px-3.5 py-3 text-sm text-destructive-foreground"
+        >
+          <AlertCircleIcon className="mt-0.5 h-4 w-4 shrink-0" />
+          {error ?? "Application not found."}
+        </div>
+        <Link
+          href="/dashboard"
+          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeftIcon className="h-4 w-4" />
           Back to dashboard
         </Link>
       </div>
@@ -67,45 +106,35 @@ export default function ApplicationDetailPage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10">
-      <Link href="/dashboard" className="text-sm text-gray-500 hover:underline">
-        &larr; Back to dashboard
+    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+      <Link
+        href="/dashboard"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeftIcon className="h-4 w-4" />
+        Back to dashboard
       </Link>
 
-      <h1 className="mt-4 text-2xl font-bold">{application.job.title}</h1>
-      <p className="mt-1 text-gray-600">{application.job.company}</p>
+      <div className="mt-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
+            {application.job.title}
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">{application.job.company}</p>
+        </div>
+        <StatusBadge status={application.status} />
+      </div>
 
-      <dl className="mt-6 grid gap-4">
-        <div>
-          <dt className="text-sm font-medium text-gray-500">Name</dt>
-          <dd>{application.name}</dd>
-        </div>
-        <div>
-          <dt className="text-sm font-medium text-gray-500">Email</dt>
-          <dd>{application.email}</dd>
-        </div>
-        <div>
-          <dt className="text-sm font-medium text-gray-500">Phone</dt>
-          <dd>{application.phone}</dd>
-        </div>
-        <div>
-          <dt className="text-sm font-medium text-gray-500">Resume summary</dt>
-          <dd className="whitespace-pre-line">{application.resumeSummary}</dd>
-        </div>
-        <div>
-          <dt className="text-sm font-medium text-gray-500">Why does this role interest you?</dt>
-          <dd className="whitespace-pre-line">{application.essayAnswer1}</dd>
-        </div>
-        <div>
-          <dt className="text-sm font-medium text-gray-500">
-            Describe a time you solved a problem without being told how.
-          </dt>
-          <dd className="whitespace-pre-line">{application.essayAnswer2}</dd>
-        </div>
-        <div>
-          <dt className="text-sm font-medium text-gray-500">Status</dt>
-          <dd className="uppercase">{application.status}</dd>
-        </div>
+      <dl className="mt-8 grid gap-6 rounded-xl border border-border bg-surface p-5">
+        <Field label="Name" value={application.name} />
+        <Field label="Email" value={application.email} />
+        <Field label="Phone" value={application.phone} />
+        <Field label="Resume summary" value={application.resumeSummary} />
+        <Field label="Why does this role interest you?" value={application.essayAnswer1} />
+        <Field
+          label="Describe a time you solved a problem without being told how."
+          value={application.essayAnswer2}
+        />
       </dl>
     </div>
   );
