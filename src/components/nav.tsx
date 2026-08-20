@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { LogoutButton } from "./logout-button";
 import { LogoMark } from "./icons";
 import { getInitials } from "@/lib/format";
+import { buttonGhostClass } from "@/lib/ui";
 
 export async function Nav() {
   const session = await getSession();
@@ -25,10 +26,7 @@ export async function Nav() {
         <nav className="flex items-center gap-2 text-sm">
           {user ? (
             <>
-              <Link
-                href="/dashboard"
-                className="rounded-md px-3 py-2 font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
-              >
+              <Link href="/dashboard" className={buttonGhostClass}>
                 Dashboard
               </Link>
               <div className="ml-1 flex items-center gap-3 border-l border-border pl-3">
@@ -43,15 +41,12 @@ export async function Nav() {
             </>
           ) : (
             <>
-              <Link
-                href="/login"
-                className="rounded-md px-3 py-2 font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
-              >
+              <Link href="/login" className={buttonGhostClass}>
                 Log in
               </Link>
               <Link
                 href="/signup"
-                className="rounded-md bg-primary px-3.5 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                className="cursor-pointer rounded-md bg-primary px-3.5 py-2 font-medium text-primary-foreground transition-all duration-150 hover:bg-primary/90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 Sign up
               </Link>

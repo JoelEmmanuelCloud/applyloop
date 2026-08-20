@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getInitials, timeAgo } from "@/lib/format";
 import { ArrowLeftIcon, MapPinIcon, ClockIcon } from "@/components/icons";
+import { buttonPrimaryClass } from "@/lib/ui";
 
 export default async function JobDetailPage({ params }: PageProps<"/jobs/[id]">) {
   const { id } = await params;
@@ -60,10 +61,7 @@ export default async function JobDetailPage({ params }: PageProps<"/jobs/[id]">)
             {job.company}
           </p>
           <p className="mt-1 text-sm text-foreground">{job.location}</p>
-          <Link
-            href={`/jobs/${job.id}/apply`}
-            className="mt-4 flex w-full items-center justify-center rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
+          <Link href={`/jobs/${job.id}/apply`} className={`mt-4 w-full ${buttonPrimaryClass}`}>
             Apply now
           </Link>
         </aside>

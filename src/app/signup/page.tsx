@@ -4,9 +4,8 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AlertCircleIcon, LogoMark, SpinnerIcon } from "@/components/icons";
-
-const inputClass =
-  "mt-1.5 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none transition-shadow focus:border-accent focus:ring-2 focus:ring-ring/25";
+import { PasswordInput } from "@/components/password-input";
+import { fieldClass, buttonPrimaryClass } from "@/lib/ui";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -63,7 +62,7 @@ export default function SignupPage() {
               type="text"
               required
               autoComplete="name"
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
 
@@ -77,23 +76,12 @@ export default function SignupPage() {
               type="email"
               required
               autoComplete="email"
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-foreground">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              minLength={8}
-              autoComplete="new-password"
-              className={inputClass}
-            />
+            <PasswordInput name="password" autoComplete="new-password" minLength={8} />
             <p className="mt-1.5 text-xs text-muted-foreground">At least 8 characters.</p>
           </div>
 
@@ -107,11 +95,7 @@ export default function SignupPage() {
             </div>
           )}
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
-          >
+          <button type="submit" disabled={submitting} className={`w-full ${buttonPrimaryClass}`}>
             {submitting && <SpinnerIcon className="h-4 w-4" />}
             {submitting ? "Signing up..." : "Sign up"}
           </button>

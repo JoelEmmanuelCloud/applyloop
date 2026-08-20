@@ -2,11 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { AlertCircleIcon, CheckCircleIcon, SpinnerIcon } from "@/components/icons";
-
-const inputClass =
-  "mt-1.5 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-shadow focus:border-accent focus:ring-2 focus:ring-ring/25";
-
-const labelClass = "block text-sm font-medium text-foreground";
+import { fieldClass, fieldLabelClass, buttonPrimaryClass } from "@/lib/ui";
 
 export function ApplyForm({
   jobId,
@@ -80,7 +76,7 @@ export function ApplyForm({
         <h2 className="text-sm font-semibold text-foreground">Contact information</h2>
         <div className="mt-4 flex flex-col gap-4">
           <div>
-            <label htmlFor="name" className={labelClass}>
+            <label htmlFor="name" className={fieldLabelClass}>
               Name
             </label>
             <input
@@ -90,12 +86,12 @@ export function ApplyForm({
               required
               autoComplete="name"
               defaultValue={defaultName}
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
 
           <div>
-            <label htmlFor="email" className={labelClass}>
+            <label htmlFor="email" className={fieldLabelClass}>
               Email
             </label>
             <input
@@ -105,12 +101,12 @@ export function ApplyForm({
               required
               autoComplete="email"
               defaultValue={defaultEmail}
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
 
           <div>
-            <label htmlFor="phone" className={labelClass}>
+            <label htmlFor="phone" className={fieldLabelClass}>
               Phone
             </label>
             <input
@@ -119,7 +115,7 @@ export function ApplyForm({
               type="tel"
               required
               autoComplete="tel"
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
         </div>
@@ -129,7 +125,7 @@ export function ApplyForm({
         <h2 className="text-sm font-semibold text-foreground">Application questions</h2>
         <div className="mt-4 flex flex-col gap-4">
           <div>
-            <label htmlFor="resumeSummary" className={labelClass}>
+            <label htmlFor="resumeSummary" className={fieldLabelClass}>
               Resume summary
             </label>
             <textarea
@@ -138,12 +134,12 @@ export function ApplyForm({
               required
               rows={5}
               placeholder="Paste a short summary of your experience"
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
 
           <div>
-            <label htmlFor="essayAnswer1" className={labelClass}>
+            <label htmlFor="essayAnswer1" className={fieldLabelClass}>
               Why does this role interest you?
             </label>
             <textarea
@@ -151,12 +147,12 @@ export function ApplyForm({
               name="essayAnswer1"
               required
               rows={4}
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
 
           <div>
-            <label htmlFor="essayAnswer2" className={labelClass}>
+            <label htmlFor="essayAnswer2" className={fieldLabelClass}>
               Describe a time you solved a problem without being told how.
             </label>
             <textarea
@@ -164,7 +160,7 @@ export function ApplyForm({
               name="essayAnswer2"
               required
               rows={4}
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
         </div>
@@ -180,11 +176,7 @@ export function ApplyForm({
         </div>
       )}
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
-      >
+      <button type="submit" disabled={submitting} className={buttonPrimaryClass}>
         {submitting && <SpinnerIcon className="h-4 w-4" />}
         {submitting ? "Submitting..." : "Submit application"}
       </button>

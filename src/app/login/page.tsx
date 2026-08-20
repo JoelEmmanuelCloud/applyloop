@@ -4,9 +4,8 @@ import { useState, FormEvent, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AlertCircleIcon, LogoMark, SpinnerIcon } from "@/components/icons";
-
-const inputClass =
-  "mt-1.5 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none transition-shadow focus:border-accent focus:ring-2 focus:ring-ring/25";
+import { PasswordInput } from "@/components/password-input";
+import { fieldClass, buttonPrimaryClass } from "@/lib/ui";
 
 function LoginForm() {
   const router = useRouter();
@@ -62,23 +61,11 @@ function LoginForm() {
               type="email"
               required
               autoComplete="email"
-              className={inputClass}
+              className={fieldClass}
             />
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-foreground">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              autoComplete="current-password"
-              className={inputClass}
-            />
-          </div>
+          <PasswordInput name="password" autoComplete="current-password" />
 
           {error && (
             <div
@@ -90,11 +77,7 @@ function LoginForm() {
             </div>
           )}
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
-          >
+          <button type="submit" disabled={submitting} className={`w-full ${buttonPrimaryClass}`}>
             {submitting && <SpinnerIcon className="h-4 w-4" />}
             {submitting ? "Logging in..." : "Log in"}
           </button>
