@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { AlertCircleIcon, CheckCircleIcon, SpinnerIcon } from "@/components/icons";
+import { fieldClass, fieldLabelClass, buttonPrimaryClass } from "@/lib/ui";
 
 export function ApplyForm({
   jobId,
@@ -50,106 +52,132 @@ export function ApplyForm({
 
   if (success) {
     return (
-      <div className="mt-6 rounded border border-green-200 bg-green-50 p-4 text-sm text-green-800">
-        Application submitted successfully.{" "}
-        <a href="/dashboard" className="underline">
+      <div className="mt-6 flex flex-col items-center gap-3 rounded-xl border border-border bg-surface px-6 py-10 text-center">
+        <CheckCircleIcon className="h-10 w-10 text-success" />
+        <p className="text-[15px] font-semibold text-foreground">
+          Application submitted
+        </p>
+        <p className="text-sm text-muted-foreground">
+          We&apos;ll follow up by email as soon as there&apos;s an update.
+        </p>
+        <a
+          href="/dashboard"
+          className="mt-2 text-sm font-medium text-accent hover:text-accent-hover hover:underline"
+        >
           View your applications
         </a>
-        .
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-5">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-800">
-          Name
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          defaultValue={defaultName}
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2"
-        />
+    <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-8">
+      <div className="rounded-xl border border-border bg-surface p-5">
+        <h2 className="text-sm font-semibold text-foreground">Contact information</h2>
+        <div className="mt-4 flex flex-col gap-4">
+          <div>
+            <label htmlFor="name" className={fieldLabelClass}>
+              Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              autoComplete="name"
+              defaultValue={defaultName}
+              className={fieldClass}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className={fieldLabelClass}>
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              defaultValue={defaultEmail}
+              className={fieldClass}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="phone" className={fieldLabelClass}>
+              Phone
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              required
+              autoComplete="tel"
+              className={fieldClass}
+            />
+          </div>
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-800">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          defaultValue={defaultEmail}
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2"
-        />
+      <div className="rounded-xl border border-border bg-surface p-5">
+        <h2 className="text-sm font-semibold text-foreground">Application questions</h2>
+        <div className="mt-4 flex flex-col gap-4">
+          <div>
+            <label htmlFor="resumeSummary" className={fieldLabelClass}>
+              Resume summary
+            </label>
+            <textarea
+              id="resumeSummary"
+              name="resumeSummary"
+              required
+              rows={5}
+              placeholder="Paste a short summary of your experience"
+              className={fieldClass}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="essayAnswer1" className={fieldLabelClass}>
+              Why does this role interest you?
+            </label>
+            <textarea
+              id="essayAnswer1"
+              name="essayAnswer1"
+              required
+              rows={4}
+              className={fieldClass}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="essayAnswer2" className={fieldLabelClass}>
+              Describe a time you solved a problem without being told how.
+            </label>
+            <textarea
+              id="essayAnswer2"
+              name="essayAnswer2"
+              required
+              rows={4}
+              className={fieldClass}
+            />
+          </div>
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-800">
-          Phone
-        </label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          required
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
+      {error && (
+        <div
+          role="alert"
+          className="flex items-start gap-2 rounded-md border border-destructive/30 bg-destructive-soft px-3.5 py-3 text-sm text-destructive-foreground"
+        >
+          <AlertCircleIcon className="mt-0.5 h-4 w-4 shrink-0" />
+          {error}
+        </div>
+      )}
 
-      <div>
-        <label htmlFor="resumeSummary" className="block text-sm font-medium text-gray-800">
-          Resume summary
-        </label>
-        <textarea
-          id="resumeSummary"
-          name="resumeSummary"
-          required
-          rows={5}
-          placeholder="Paste a short summary of your experience"
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="essayAnswer1" className="block text-sm font-medium text-gray-800">
-          Why does this role interest you?
-        </label>
-        <textarea
-          id="essayAnswer1"
-          name="essayAnswer1"
-          required
-          rows={4}
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="essayAnswer2" className="block text-sm font-medium text-gray-800">
-          Describe a time you solved a problem without being told how.
-        </label>
-        <textarea
-          id="essayAnswer2"
-          name="essayAnswer2"
-          required
-          rows={4}
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-
-      {error && <p className="text-sm text-red-600">{error}</p>}
-
-      <button
-        type="submit"
-        disabled={submitting}
-        className="rounded bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-800 disabled:opacity-50"
-      >
+      <button type="submit" disabled={submitting} className={buttonPrimaryClass}>
+        {submitting && <SpinnerIcon className="h-4 w-4" />}
         {submitting ? "Submitting..." : "Submit application"}
       </button>
     </form>

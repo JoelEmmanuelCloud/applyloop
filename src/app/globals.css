@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-hover: #f8fafc;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --primary: #0f172a;
+  --primary-foreground: #ffffff;
+  --accent: #0369a1;
+  --accent-hover: #075985;
+  --accent-foreground: #ffffff;
+  --accent-soft: #e0f2fe;
+  --accent-soft-foreground: #075985;
+  --success: #16a34a;
+  --success-soft: #dcfce7;
+  --success-foreground: #166534;
+  --warning: #d97706;
+  --warning-soft: #fef3c7;
+  --warning-foreground: #92400e;
+  --destructive: #dc2626;
+  --destructive-soft: #fef2f2;
+  --destructive-foreground: #991b1b;
+  --ring: #0369a1;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-foreground: var(--accent-soft-foreground);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0f1a;
+    --foreground: #e2e8f0;
+    --surface: #111827;
+    --surface-hover: #161f2e;
+    --muted: #1a2333;
+    --muted-foreground: #94a3b8;
+    --border: #1f2937;
+    --primary: #e2e8f0;
+    --primary-foreground: #0a0f1a;
+    --accent: #38bdf8;
+    --accent-hover: #7dd3fc;
+    --accent-foreground: #0a0f1a;
+    --accent-soft: #0c2f45;
+    --accent-soft-foreground: #7dd3fc;
+    --success: #4ade80;
+    --success-soft: #0f2e1b;
+    --success-foreground: #86efac;
+    --warning: #fbbf24;
+    --warning-soft: #3a2705;
+    --warning-foreground: #fcd34d;
+    --destructive: #f87171;
+    --destructive-soft: #3a1414;
+    --destructive-foreground: #fca5a5;
+    --ring: #38bdf8;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent-soft-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
