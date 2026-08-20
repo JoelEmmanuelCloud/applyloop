@@ -15,6 +15,7 @@ type ApplicationDetail = {
   essayAnswer2: string;
   status: string;
   job: {
+    id: string;
     title: string;
     company: string;
   };
@@ -121,6 +122,12 @@ export default function ApplicationDetailPage({
             {application.job.title}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">{application.job.company}</p>
+          <Link
+            href={`/jobs/${application.job.id}`}
+            className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover hover:underline"
+          >
+            View job posting
+          </Link>
         </div>
         <StatusBadge status={application.status} />
       </div>
